@@ -1328,6 +1328,28 @@ footer {
     line-height: 1.4;
 }
 
+/* ---------- 公众号引流（下载页） ---------- */
+.wechat-follow {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.wechat-qr {
+    width: 120px;
+    height: 120px;
+    flex-shrink: 0;
+    border-radius: var(--r-md);
+    border: 1px solid var(--line);
+    background: #fff;
+    padding: 6px;
+}
+.wechat-follow-text p { margin: 0 0 8px; line-height: 1.6; }
+.wechat-follow-text .wechat-hint { font-size: .85rem; color: var(--muted); margin-bottom: 0; }
+
+@media (max-width: 760px) {
+    .wechat-follow { flex-direction: column; text-align: center; gap: 14px; }
+}
+
 /* ---------- 响应式 ---------- */
 @media (max-width: 1020px) {
     .features-grid, .stack-grid { grid-template-columns: repeat(2, 1fr); }
