@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>界面速览 — KeShip</title>
+    <meta name="description" content="KeShip 真实运行界面：自由任务/教学实验双模式、世界与模型加载、水域海况配置、传感器查看（IMU/BDS/磁力计/图像/激光雷达）与 ROS 2 控制联调。">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2300c2ff'/%3E%3Cstop offset='1' stop-color='%230b5cad'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='url(%23g)'/%3E%3Cpath d='M22 60 L50 38 L78 60 L70 60 L70 66 L30 66 L30 60 Z' fill='%23fff' opacity='.95'/%3E%3Cpath d='M44 30 h12 v8 h-12 z M50 22 v8' fill='%23fff' opacity='.95'/%3E%3Cpath d='M14 76 q 12 -5 24 0 t 24 0 t 24 0' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' opacity='.85'/%3E%3C/svg%3E">
+</head>
+<body>
+
+    <!-- ================= 导航栏 ================= -->
+    <header id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo" aria-label="KeShip 首页">
+                <svg class="logo-mark" viewBox="0 0 100 100" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0" stop-color="#00c2ff"/><stop offset="1" stop-color="#0b5cad"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="100" height="100" rx="22" fill="url(#lg)"/>
+                    <path d="M22 62 L50 40 L78 62 L70 62 L70 68 L30 68 L30 62 Z" fill="#fff" opacity=".95"/>
+                    <rect x="44" y="30" width="12" height="10" fill="#fff" opacity=".95"/>
+                    <line x1="50" y1="22" x2="50" y2="30" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".95"/>
+                    <circle cx="50" cy="20" r="3" fill="#fde047"/>
+                    <path d="M14 78 q 12 -5 24 0 t 24 0 t 24 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+                </svg>
+                <span class="logo-text">KeShip</span>
+            </a>
+            <nav class="nav-links" id="nav-links" aria-label="主导航">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="features.html" class="nav-link">核心能力</a>
+                <a href="start.html" class="nav-link">快速开始</a>
+                <a href="showcase.html" class="nav-link active" aria-current="page">界面速览</a>
+                <a href="get.html" class="nav-link">获取</a>
+                <a href="download/index.html" class="nav-link">镜像下载</a>
+            </nav>
+            <a href="get.html" class="nav-cta">获取 KeShip</a>
+            <button class="nav-toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="nav-links">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="nav-progress" id="nav-progress" aria-hidden="true"></div>
+    </header>
+
+    <main>
+
+    <!-- ================= 子页 Hero ================= -->
+    <section class="page-hero">
+        <div class="hero-bg" aria-hidden="true">
+            <div class="hero-grid"></div>
+        </div>
+        <div class="container">
+            <nav class="crumbs" aria-label="面包屑"><a href="index.html">首页</a><span aria-hidden="true">/</span>界面速览</nav>
+            <h1 class="page-title">界面速览</h1>
+            <p class="page-desc">实验控制，一目了然——下面是真实运行界面（自由任务模式）。</p>
+        </div>
+    </section>
+
+    <!-- ================= 截图 + 功能清单 ================= -->
+    <section class="section">
+        <div class="container">
+            <div class="ui-grid">
+                <figure class="ui-shot reveal">
+                    <div class="ui-frame">
+                        <span class="ui-frame-bar" aria-hidden="true"><i></i><i></i><i></i></span>
+                        <img src="assets/ui-preview.png" alt="KeShip 图形界面：自由任务模式下的世界与模型加载菜单、数学船型与圆柱体预设、水域添加及传感器查看面板" loading="lazy">
+                    </div>
+                    <figcaption>KeShip GUI · 自由任务模式</figcaption>
+                </figure>
+                <ul class="ui-list reveal">
+                    <li><strong>双模式切换</strong>自由任务 / 教学实验，适配自主探索与课程教学两类场景</li>
+                    <li><strong>世界与模型</strong>载入世界、载入模型文件；内置数学船型、圆柱体（含浮力/水动力）等预设</li>
+                    <li><strong>水域海况</strong>添加默认水域 / 自定义水域，波浪参数 GUI 下发、即时生效</li>
+                    <li><strong>执行控制</strong>世界设置、任务执行、暂停/继续一屏可达</li>
+                    <li><strong>传感器查看</strong>IMU、BDS（北斗）定位、磁力计、图像、激光雷达实时数据</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= 控制联调 ================= -->
+    <section class="section section-alt">
+        <div class="container">
+            <header class="section-head reveal">
+                <p class="section-kicker">控制联调</p>
+                <h2 class="section-title">你的控制器，直接接进来</h2>
+                <p class="section-desc">模型就绪后，ROS 2 桥接节点自动建立话题——无需手动接线。</p>
+            </header>
+            <div class="code-block reveal">
+                <div class="code-head">
+                    <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <span class="code-lang">Bash · ros2 topic</span>
+                    <button class="copy-btn" data-code="code-topics" type="button">复制</button>
+                </div>
+<pre><code id="code-topics"><span class="c"># 加载模型后，桥接节点按 /keship/model_ready 事件自动建立：</span>
+/keship/thrust/&lt;实例名&gt;/thrust_0    <span class="c"># 推进器推力指令（ROS → Gazebo）</span>
+&lt;实例名&gt;/pose                       <span class="c"># 船舶位姿（Gazebo → ROS）</span>
+&lt;实例名&gt;/&lt;传感器&gt;/&lt;名称&gt;             <span class="c"># IMU / NavSat(BDS) / 磁力计 / 图像 / 激光雷达</span></code></pre>
+            </div>
+            <div class="notes reveal">
+                <div class="note">
+                    <p class="note-title"><span class="note-ico n-info" aria-hidden="true">i</span>实例名即话题名</p>
+                    <p>全部话题以 GUI 中加载的模型实例名命名——先在 GUI 加载模型，再订阅对应话题。</p>
+                </div>
+                <div class="note">
+                    <p class="note-title"><span class="note-ico n-info" aria-hidden="true">i</span>MATLAB / Python 均可</p>
+                    <p>任何支持 ROS 2 的控制器框架（MATLAB Robotics System Toolbox、Python rclpy 等）都可直接发布推力指令、订阅位姿与传感器数据。</p>
+                </div>
+                <div class="note">
+                    <p class="note-title"><span class="note-ico n-info" aria-hidden="true">i</span>无头驱动</p>
+                    <p>批量实验可不起 GUI：<code>ros2 launch keship keship.launch.py headless:=true</code>，再用 <code>keship_ctl</code> 指令方式驱动仿真。</p>
+                </div>
+            </div>
+            <p class="more-link reveal"><a href="start.html">回到快速开始，把它跑起来 →</a></p>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- ================= 页脚 ================= -->
+    <footer>
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <svg class="logo-mark" viewBox="0 0 100 100" aria-hidden="true">
+                    <rect width="100" height="100" rx="22" fill="#38bdf8"/>
+                    <path d="M22 62 L50 40 L78 62 L70 62 L70 68 L30 68 L30 62 Z" fill="#fff" opacity=".95"/>
+                    <rect x="44" y="30" width="12" height="10" fill="#fff" opacity=".95"/>
+                    <line x1="50" y1="22" x2="50" y2="30" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".95"/>
+                    <circle cx="50" cy="20" r="3" fill="#fde047"/>
+                    <path d="M14 78 q 12 -5 24 0 t 24 0 t 24 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+                </svg>
+                <span>KeShip</span>
+            </div>
+            <p class="footer-desc">船舶虚拟仿真实验平台 · 为船海工程教育而生</p>
+            <p class="footer-kz">
+                <img class="kz-mark-sm" src="assets/kzqj-logo.svg" alt="嵙舟求舰" width="20" height="20">
+                <span>嵙舟求舰 · 出品</span>
+            </p>
+
+            <nav class="footer-links" aria-label="页脚导航">
+                <a href="index.html">首页</a>
+                <a href="features.html">核心能力</a>
+                <a href="start.html">快速开始</a>
+                <a href="showcase.html">界面速览</a>
+                <a href="get.html">获取</a>
+                <a href="download/index.html">镜像下载</a>
+            </nav>
+            <p class="footer-copy">© <span id="year">2026</span> KeShip Project · 嵙舟求舰 · Gazebo / ROS 2 / Qt</p>
+        </div>
+    </footer>
+
+    <button id="back-top" class="back-top" type="button" aria-label="回到顶部">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 15 7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

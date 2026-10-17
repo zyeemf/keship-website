@@ -1,0 +1,41 @@
+<!--
+  嵙舟求舰 · 品牌图标
+  设计：帆船（双帆 + 桅杆 + 弧形船体）行于波浪之上——简笔白描，可作商标
+  配色：深海蓝底 + 白色船帆 + 青色波浪
+  用途：课题组 / 公司 logo（矢量、无外部依赖、可商用）
+  使用方式：
+    <img src="assets/kzqj-logo.svg" alt="嵙舟求舰" width="40" height="40">
+    或直接 inline <svg>...</svg>
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="嵙舟求舰">
+  <defs>
+    <linearGradient id="kz-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c2340"/>
+      <stop offset="1" stop-color="#0b5cad"/>
+    </linearGradient>
+    <linearGradient id="kz-wave" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7dd3fc" stop-opacity=".35"/>
+      <stop offset=".5" stop-color="#7dd3fc" stop-opacity="1"/>
+      <stop offset="1" stop-color="#7dd3fc" stop-opacity=".35"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 圆角方形外框 -->
+  <rect width="240" height="240" rx="52" fill="url(#kz-bg)"/>
+
+  <!-- 帆船：左帆（较小） -->
+  <path d="M116 78 L116 148 L76 148 Z" fill="#ffffff" opacity=".78"/>
+  <!-- 帆船：右帆（较大） -->
+  <path d="M126 60 L126 148 L178 148 Z" fill="#ffffff"/>
+  <!-- 桅杆 -->
+  <rect x="116" y="50" width="7" height="100" rx="3.5" fill="#ffffff"/>
+
+  <!-- 船体（弧形底） -->
+  <path d="M58 156 L182 156 L158 184 Q120 194 82 184 Z" fill="#ffffff"/>
+
+  <!-- 波浪：两道 -->
+  <path d="M34 204 q 23 -14 46 0 t 46 0 t 46 0 t 46 0"
+        fill="none" stroke="url(#kz-wave)" stroke-width="9" stroke-linecap="round"/>
+  <path d="M54 224 q 19 -10 38 0 t 38 0 t 38 0 t 38 0"
+        fill="none" stroke="url(#kz-wave)" stroke-width="6" stroke-linecap="round" opacity=".55"/>
+</svg>

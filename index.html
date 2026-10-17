@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KeShip — 船舶虚拟仿真实验平台</title>
+    <meta name="description" content="KeShip 是面向船舶与海洋工程的虚拟仿真实验平台：预置 WSL 镜像一键安装，或 git clone 源码自建环境。加载船舶、配置水域海况、观测运动响应，无需编程基础。">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2300c2ff'/%3E%3Cstop offset='1' stop-color='%230b5cad'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='url(%23g)'/%3E%3Cpath d='M22 60 L50 38 L78 60 L70 60 L70 66 L30 66 L30 60 Z' fill='%23fff' opacity='.95'/%3E%3Cpath d='M44 30 h12 v8 h-12 z M50 22 v8' fill='%23fff' opacity='.95'/%3E%3Cpath d='M14 76 q 12 -5 24 0 t 24 0 t 24 0' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' opacity='.85'/%3E%3C/svg%3E">
+</head>
+<body>
+
+    <!-- ================= 导航栏 ================= -->
+    <header id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo" aria-label="KeShip 首页">
+                <svg class="logo-mark" viewBox="0 0 100 100" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0" stop-color="#00c2ff"/><stop offset="1" stop-color="#0b5cad"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="100" height="100" rx="22" fill="url(#lg)"/>
+                    <!-- 船体 -->
+                    <path d="M22 62 L50 40 L78 62 L70 62 L70 68 L30 68 L30 62 Z" fill="#fff" opacity=".95"/>
+                    <!-- 桅杆 + 顶标 -->
+                    <rect x="44" y="30" width="12" height="10" fill="#fff" opacity=".95"/>
+                    <line x1="50" y1="22" x2="50" y2="30" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".95"/>
+                    <circle cx="50" cy="20" r="3" fill="#fde047"/>
+                    <!-- 航迹波 -->
+                    <path d="M14 78 q 12 -5 24 0 t 24 0 t 24 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+                </svg>
+                <span class="logo-text">KeShip</span>
+            </a>
+            <nav class="nav-links" id="nav-links" aria-label="主导航">
+                <a href="index.html" class="nav-link active" aria-current="page">首页</a>
+                <a href="features.html" class="nav-link">核心能力</a>
+                <a href="start.html" class="nav-link">快速开始</a>
+                <a href="showcase.html" class="nav-link">界面速览</a>
+                <a href="get.html" class="nav-link">获取</a>
+                <a href="download/index.html" class="nav-link">镜像下载</a>
+            </nav>
+            <a href="get.html" class="nav-cta">获取 KeShip</a>
+            <button class="nav-toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="nav-links">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="nav-progress" id="nav-progress" aria-hidden="true"></div>
+    </header>
+
+    <main>
+
+    <!-- ================= Hero ================= -->
+    <section id="hero">
+        <div class="hero-bg" aria-hidden="true">
+            <div class="hero-grid"></div>
+            <div class="hero-glow"></div>
+        </div>
+        <div class="container hero-inner">
+            <div class="hero-copy reveal">
+                <p class="hero-badge"><span class="badge-dot"></span>船舶虚拟仿真 · 教学实验平台</p>
+                <h1 class="hero-title">KeShip</h1>
+                <p class="hero-slogan">把「跑一个船舶仿真实验」的门槛，降到<em>会点鼠标</em>。</p>
+                <p class="hero-subtitle">
+                    面向船舶与海洋工程的虚拟仿真实验平台。<strong>加载船舶 → 配置水域海况 → 观测运动响应</strong>，完整实验闭环，无需编程基础。
+                </p>
+                <div class="hero-actions">
+                    <a href="start.html" class="btn btn-primary">
+                        <svg viewBox="0 0 24 24" class="btn-ico" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+                        快速开始
+                    </a>
+                </div>
+                <dl class="hero-stats">
+                    <div class="stat"><dt>仿真引擎</dt><dd>Gazebo Harmonic</dd></div>
+                    <div class="stat"><dt>中间件</dt><dd>ROS 2 Jazzy</dd></div>
+                    <div class="stat"><dt>交互界面</dt><dd>Qt 5 GUI</dd></div>
+                    <div class="stat"><dt>开发语言</dt><dd>C++17 · Python</dd></div>
+                </dl>
+            </div>
+
+            <!-- 装饰性 SVG 场景：无人船 + 航迹 + 声波 -->
+            <div class="hero-art reveal" aria-hidden="true">
+                <svg viewBox="0 0 520 440" class="hero-svg">
+                    <defs>
+                        <linearGradient id="hull" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0" stop-color="#f8fafc"/><stop offset="1" stop-color="#b9d4ea"/>
+                        </linearGradient>
+                        <radialGradient id="lamp" cx=".5" cy=".5" r=".5">
+                            <stop offset="0" stop-color="#7dd3fc" stop-opacity=".55"/>
+                            <stop offset="1" stop-color="#7dd3fc" stop-opacity="0"/>
+                        </radialGradient>
+                    </defs>
+
+                    <!-- 灯塔光束 -->
+                    <circle cx="452" cy="96" r="120" fill="url(#lamp)"/>
+                    <path d="M452 96 L300 210" stroke="#7dd3fc" stroke-opacity=".28" stroke-width="26" stroke-linecap="round"/>
+
+                    <!-- 灯塔 -->
+                    <g fill="#e2e8f0">
+                        <path d="M444 96 l16 0 l-4 66 h-8 z"/>
+                        <rect x="440" y="158" width="24" height="7" rx="2"/>
+                    </g>
+                    <circle cx="452" cy="92" r="6" fill="#fde047">
+                        <animate attributeName="opacity" values="1;.35;1" dur="2.4s" repeatCount="indefinite"/>
+                    </circle>
+
+                    <!-- 计划航迹（虚线 + 途径点） -->
+                    <path d="M70 320 C 170 250, 240 350, 330 268 S 420 190, 468 150"
+                          fill="none" stroke="#7dd3fc" stroke-opacity=".7" stroke-width="2.5" stroke-dasharray="9 8">
+                        <animate attributeName="stroke-dashoffset" from="68" to="0" dur="3.2s" repeatCount="indefinite"/>
+                    </path>
+                    <g fill="#0ea5e9" stroke="#e0f2fe" stroke-width="2">
+                        <circle cx="70" cy="320" r="5.5"/>
+                        <circle cx="330" cy="268" r="5.5"/>
+                        <circle cx="468" cy="150" r="5.5"/>
+                    </g>
+
+                    <!-- 无人船（USV） -->
+                    <g transform="translate(196 236) rotate(-9)">
+                        <path d="M-72 22 L64 22 L48 48 L-52 48 Z" fill="url(#hull)" stroke="#94a3b8" stroke-width="1.5"/>
+                        <path d="M-72 22 L64 22 L60 30 L-66 30 Z" fill="#0b5cad" opacity=".18"/>
+                        <rect x="-26" y="-8" width="46" height="30" rx="5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+                        <rect x="-20" y="-2" width="14" height="10" rx="2" fill="#38bdf8" opacity=".85"/>
+                        <rect x="0" y="-2" width="14" height="10" rx="2" fill="#38bdf8" opacity=".85"/>
+                        <rect x="-4" y="-46" width="5" height="38" rx="2" fill="#cbd5e1"/>
+                        <circle cx="-1.5" cy="-50" r="6" fill="#f97316">
+                            <animate attributeName="r" values="6;7.6;6" dur="1.8s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="66" cy="26" r="3" fill="#fef08a"/>
+                    </g>
+
+                    <!-- 船体下方水波 -->
+                    <g class="hero-waves">
+                        <path class="wv wv-1" d="M-20 392 q 60 -18 120 0 t 120 0 t 120 0 t 120 0 t 120 0" fill="none" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/>
+                        <path class="wv wv-2" d="M-20 414 q 60 -16 120 0 t 120 0 t 120 0 t 120 0 t 120 0" fill="none" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+                        <path class="wv wv-3" d="M-20 434 q 60 -14 120 0 t 120 0 t 120 0 t 120 0 t 120 0" fill="none" stroke="#0284c7" stroke-width="3" stroke-linecap="round" opacity=".45"/>
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+        <!-- 海浪过渡 -->
+        <div class="hero-wave" aria-hidden="true">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                <path d="M0,64 C240,110 480,10 720,52 C960,94 1200,30 1440,66 L1440,120 L0,120 Z" fill="#f4f8fc"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- ================= 双入口：选你的方式 ================= -->
+    <section id="paths" class="section">
+        <div class="container">
+            <header class="section-head reveal">
+                <p class="section-kicker">两种方式</p>
+                <h2 class="section-title">按你的身份，选一条路</h2>
+                <p class="section-desc">学生用预置镜像，一键安装；开发者 clone 源码，自由构建。</p>
+            </header>
+            <div class="path-cards">
+                <a class="path-card path-student reveal" href="start.html#student">
+                    <div class="path-top">
+                        <span class="path-badge">学生用户 · 推荐</span>
+                        <span class="path-emoji" aria-hidden="true">
+                            <svg viewBox="0 0 24 24"><path d="M12 3 3 7.5l9 4.5 9-4.5L12 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M6 10.2V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M21 7.5V13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                        </span>
+                    </div>
+                    <h3>预置 WSL 镜像</h3>
+                    <p>一键下载、一键安装。ROS 2、Gazebo、KeShip 与中文字体<strong>全部预装</strong>，导入 WSL 即用，无需配置环境、无需编译。</p>
+                    <ul class="path-points">
+                        <li>镜像约 11 GB，含完整运行环境</li>
+                        <li>导入后一键启动，出问题可诊断上报</li>
+                        <li>适合课程实验，零基础可用</li>
+                    </ul>
+                    <span class="path-go">查看安装步骤 →</span>
+                </a>
+
+                <a class="path-card path-dev reveal" href="start.html#dev">
+                    <div class="path-top">
+                        <span class="path-badge alt">开发者</span>
+                        <span class="path-emoji" aria-hidden="true">
+                            <svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="18" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 7.2c3.6.6 4.4 2.4 4.4 4.2M8 16.8c3.6-.6 4.4-2.4 4.4-4.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                        </span>
+                    </div>
+                    <h3>git clone 源码</h3>
+                    <p>在<strong>独立 Ubuntu</strong> 或 <strong>WSL Ubuntu</strong> 中自行 clone 代码、配置环境、编译运行，适合二次开发与代码贡献。</p>
+                    <ul class="path-points">
+                        <li>双远端：GitHub（公网）+ 华为云 CodeHub</li>
+                        <li>main / dev / feat/* 分支，按需切换</li>
+                        <li>从零配置指南随仓库分发（doc/BUILD.md）</li>
+                    </ul>
+                    <span class="path-go">查看构建步骤 →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= 能力精选 ================= -->
+    <section id="features" class="section section-alt">
+        <div class="container">
+            <header class="section-head reveal">
+                <p class="section-kicker">能力精选</p>
+                <h2 class="section-title">一个实验，四步点完</h2>
+                <p class="section-desc">从加载模型到看见船舶动起来，全程不用写代码。</p>
+            </header>
+            <div class="features-grid cols-2">
+                <article class="feature-card reveal">
+                    <div class="f-icon i-blue">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6.2L4.7 17.6A2 2 0 0 0 6.4 20.7h11.2a2 2 0 0 0 1.7-3.1L14 9.2V3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.5 14h9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                    </div>
+                    <h3>GUI 无代码实验</h3>
+                    <p>自由任务 / 教学实验双模式。载入世界与模型、设置水域与波浪、启动与暂停，全部点选完成——不需要写一行代码。</p>
+                </article>
+                <article class="feature-card reveal">
+                    <div class="f-icon i-deep">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9c2.5-2.6 5-2.6 7.5 0S15 11.6 17.5 9 22.5 6.4 22 9M2 15c2.5-2.6 5-2.6 7.5 0s5.5 2.6 8-0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                    </div>
+                    <h3>船舶水动力物理</h3>
+                    <p>浮力、阻尼、波浪力全链条汇总于受力总线；附加质量按吃水几何参数化，六自由度运动响应符合 Fossen 建模框架。</p>
+                </article>
+                <article class="feature-card reveal">
+                    <div class="f-icon i-teal">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3s6 6.6 6 10.6A6 6 0 0 1 6 13.6C6 9.6 12 3 12 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.5 14a2.5 2.5 0 0 0 2.5 2.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                    </div>
+                    <h3>水域与海况配置</h3>
+                    <p>默认水域 / 自定义水域一键添加；波浪参数经 GUI 下发、即时生效；流速与风向环境力可调，复现不同海况。</p>
+                </article>
+                <article class="feature-card reveal">
+                    <div class="f-icon i-indigo">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.7 4.5 5.6v5.6c0 4.6 3.2 8.4 7.5 10 4.3-1.6 7.5-5.4 7.5-10V5.6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m8.8 12 2.3 2.3 4.1-4.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <h3>一键启动与互斥</h3>
+                    <p>单例互斥（文件锁 + 进程双检测）杜绝多实例互相干扰；GPU 预热、编译闸门、崩溃自动重试，启动链路全程护航。</p>
+                </article>
+            </div>
+            <p class="more-link reveal"><a href="features.html">查看更多</a></p>
+        </div>
+    </section>
+
+    <!-- ================= CTA ================= -->
+    <section class="cta-band">
+        <div class="container cta-inner reveal">
+            <h2>下一次船舶仿真实验，从点鼠标开始</h2>
+            <p>选一条适合你的路，几分钟跑起来。</p>
+            <div class="cta-actions">
+                <a href="start.html" class="btn btn-primary">开始快速开始</a>
+                <a href="get.html" class="btn-ghost">获取 KeShip</a>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- ================= 页脚 ================= -->
+    <footer>
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <svg class="logo-mark" viewBox="0 0 100 100" aria-hidden="true">
+                    <rect width="100" height="100" rx="22" fill="#38bdf8"/>
+                    <path d="M22 62 L50 40 L78 62 L70 62 L70 68 L30 68 L30 62 Z" fill="#fff" opacity=".95"/>
+                    <rect x="44" y="30" width="12" height="10" fill="#fff" opacity=".95"/>
+                    <line x1="50" y1="22" x2="50" y2="30" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".95"/>
+                    <circle cx="50" cy="20" r="3" fill="#fde047"/>
+                    <path d="M14 78 q 12 -5 24 0 t 24 0 t 24 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+                </svg>
+                <span>KeShip</span>
+            </div>
+            <p class="footer-desc">船舶虚拟仿真实验平台 · 为船海工程教育而生</p>
+            <p class="footer-kz">
+                <img class="kz-mark-sm" src="assets/kzqj-logo.svg" alt="嵙舟求舰" width="20" height="20">
+                <span>嵙舟求舰 · 出品</span>
+            </p>
+
+            <nav class="footer-links" aria-label="页脚导航">
+                <a href="index.html">首页</a>
+                <a href="features.html">核心能力</a>
+                <a href="start.html">快速开始</a>
+                <a href="showcase.html">界面速览</a>
+                <a href="get.html">获取</a>
+                <a href="download/index.html">镜像下载</a>
+            </nav>
+            <p class="footer-copy">© <span id="year">2026</span> KeShip Project · 嵙舟求舰 · Gazebo / ROS 2 / Qt</p>
+        </div>
+    </footer>
+
+    <button id="back-top" class="back-top" type="button" aria-label="回到顶部">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 15 7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

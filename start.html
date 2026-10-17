@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>快速开始 — KeShip</title>
+    <meta name="description" content="KeShip 快速开始：学生用户导入预置 WSL 镜像一键安装；开发者 git clone 源码，在独立 Ubuntu 或 WSL Ubuntu 中配置环境、编译、启动。">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2300c2ff'/%3E%3Cstop offset='1' stop-color='%230b5cad'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='url(%23g)'/%3E%3Cpath d='M22 60 L50 38 L78 60 L70 60 L70 66 L30 66 L30 60 Z' fill='%23fff' opacity='.95'/%3E%3Cpath d='M44 30 h12 v8 h-12 z M50 22 v8' fill='%23fff' opacity='.95'/%3E%3Cpath d='M14 76 q 12 -5 24 0 t 24 0 t 24 0' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' opacity='.85'/%3E%3C/svg%3E">
+</head>
+<body>
+
+    <!-- ================= 导航栏 ================= -->
+    <header id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo" aria-label="KeShip 首页">
+                <svg class="logo-mark" viewBox="0 0 100 100" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0" stop-color="#00c2ff"/><stop offset="1" stop-color="#0b5cad"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="100" height="100" rx="22" fill="url(#lg)"/>
+                    <path d="M22 62 L50 40 L78 62 L70 62 L70 68 L30 68 L30 62 Z" fill="#fff" opacity=".95"/>
+                    <rect x="44" y="30" width="12" height="10" fill="#fff" opacity=".95"/>
+                    <line x1="50" y1="22" x2="50" y2="30" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".95"/>
+                    <circle cx="50" cy="20" r="3" fill="#fde047"/>
+                    <path d="M14 78 q 12 -5 24 0 t 24 0 t 24 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+                </svg>
+                <span class="logo-text">KeShip</span>
+            </a>
+            <nav class="nav-links" id="nav-links" aria-label="主导航">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="features.html" class="nav-link">核心能力</a>
+                <a href="start.html" class="nav-link active" aria-current="page">快速开始</a>
+                <a href="showcase.html" class="nav-link">界面速览</a>
+                <a href="get.html" class="nav-link">获取</a>
+                <a href="download/index.html" class="nav-link">镜像下载</a>
+            </nav>
+            <a href="get.html" class="nav-cta">获取 KeShip</a>
+            <button class="nav-toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="nav-links">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="nav-progress" id="nav-progress" aria-hidden="true"></div>
+    </header>
+
+    <main>
+
+    <!-- ================= 子页 Hero ================= -->
+    <section class="page-hero">
+        <div class="hero-bg" aria-hidden="true">
+            <div class="hero-grid"></div>
+        </div>
+        <div class="container">
+            <nav class="crumbs" aria-label="面包屑"><a href="index.html">首页</a><span aria-hidden="true">/</span>快速开始</nav>
+            <h1 class="page-title">快速开始</h1>
+            <p class="page-desc">两种方式：学生用预置镜像一键安装；开发者 clone 源码自行构建。</p>
+            <div class="path-jump reveal">
+                <a href="#student" class="jump-pill">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 7.5l9 4.5 9-4.5L12 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M6 10.2V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                    我是学生 — WSL 预置镜像
+                </a>
+                <a href="#dev" class="jump-pill alt">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 6-5 6 5 6M16 6l5 6-5 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    我是开发者 — git clone 源码
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= 学生路径 ================= -->
+    <section id="student" class="section">
+        <div class="container">
+            <header class="section-head lefty reveal">
+                <p class="section-kicker">路径一 · 学生用户（推荐）</p>
+                <h2 class="section-title">WSL 预置镜像：一键下载、一键安装</h2>
+                <p class="section-desc">镜像已预装 ROS 2 Jazzy、Gazebo Harmonic、KeShip 与中文字体——导入即用，不配环境、不编译。</p>
+            </header>
+
+            <div class="step reveal">
+                <div class="step-num">1</div>
+                <div class="step-body">
+                    <h3 class="step-title">获取镜像文件</h3>
+                    <p class="step-text">前往 <a href="download/index.html"><strong>WSL 预置镜像下载页</strong></a> 获取 KeShip 镜像（<code>.tar</code>，约 <strong>11 GB</strong>，版本以当期发放为准；页面显示尚未就绪时请联系课程组 / 实验室）。镜像内已包含：Ubuntu 24.04 + ROS 2 Jazzy + Gazebo Harmonic + KeShip 及全部依赖 + 中文字体。</p>
+                </div>
+            </div>
+
+            <div class="step reveal">
+                <div class="step-num">2</div>
+                <div class="step-body">
+                    <h3 class="step-title">导入 WSL（一条命令）</h3>
+                    <div class="code-block">
+                        <div class="code-head">
+                            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                            <span class="code-lang">Windows PowerShell</span>
+                            <button class="copy-btn" data-code="code-import" type="button">复制</button>
+                        </div>
+<pre><code id="code-import"><span class="c"># 把镜像放到 D:\WSL\ 下，然后：</span>
+wsl --import KeShip E:\WSLDistros\KeShip D:\WSL\&lt;镜像文件名&gt;.tar --version 2</code></pre>
+                    </div>
+                    <p class="step-note">导入的是全新副本，不影响你现有的任何 WSL 发行版；目标目录 <code>E:\WSLDistros\KeShip</code> 可按需修改（预留 ≥ 30 GB 磁盘）。</p>
+                </div>
+            </div>
+
+            <div class="step reveal">
+                <div class="step-num">3</div>
+                <div class="step-body">
+                    <h3 class="step-title">一键启动</h3>
+                    <div class="code-block">
+                        <div class="code-head">
+                            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                            <span class="code-lang">Bash</span>
+                            <button class="copy-btn" data-code="code-stu-run" type="button">复制</button>
+                        </div>
+<pre><code id="code-stu-run">wsl -d KeShip              <span class="c"># 进入镜像内的 Ubuntu</span>
+~/keship_ws/start_keship.sh   <span class="c"># 一键启动（互斥 → GPU 预热 → 启动）</span></code></pre>
+                    </div>
+                    <p class="step-text">看到 KeShip 图形界面即成功。之后每次实验只需重复第 3 步。</p>
+                </div>
+            </div>
+
+            <div class="notes reveal">
+                <div class="note">
+                    <p class="note-title"><span class="note-ico n-info" aria-hidden="true">i</span>环境坏了怎么办</p>
+                    <p>不要试图手工修复。删除重来即可：<code>wsl --unregister KeShip</code>，再按第 2 步重新导入——几分钟恢复全新环境。</p>
+                </div>
+                <div class="note">
+                    <p class="note-title"><span class="note-ico n-info" aria-hidden="true">i</span>中文字体</p>
+                    <p>镜像已内置中文字体；若自行修改过环境导致中文显示方框，装 <code>fonts-noto-cjk</code> 即可。</p>
+                </div>
+                <div class="note">
+                    <p class="note-title"><span class="note-ico n-warn" aria-hidden="true">!</span>只能开一个</p>
+                    <p>同一时刻只运行一个 KeShip 实例；重复启动会被拒绝，这是保护机制，不是故障。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= 开发者路径 ================= -->
+    <section id="dev" class="section section-alt">
+        <div class="container">
+            <header class="section-head lefty reveal">
+                <p class="section-kicker">路径二 · 开发者</p>
+                <h2 class="section-title">git clone 源码，自行构建</h2>
+                <p class="section-desc">在独立 Ubuntu 或 WSL Ubuntu 中 clone 代码、配置环境、编译运行，适合二次开发与代码贡献。</p>
+            </header>
+
+            <!-- 步骤 1：克隆 -->
+            <div class="step reveal">
+                <div class="step-num">1</div>
+                <div class="step-body">
+                    <h3 class="step-title">克隆仓库</h3>
+                    <div class="code-block">
+                        <div class="code-head">
+                            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                            <span class="code-lang">Bash · git</span>
+                            <button class="copy-btn" data-code="code-clone" type="button">复制</button>
+                        </div>
+<pre><code id="code-clone"><span class="c"># GitHub（公网）—— 克隆到 ~/keship_ws，与文档路径保持一致</span>
+git clone https://github.com/zyeemf/KeShip.git ~/keship_ws
+
+<span class="c"># 网络受限时：SSH over 443</span>
+<span class="c"># git clone ssh://git@ssh.github.com:443/zyeemf/KeShip.git ~/keship_ws</span>
+
+<span class="c"># 团队协作：华为云 CodeHub</span>
+<span class="c"># git clone https://codehub.devcloud.cn-east-3.huaweicloud.com/fa858d905e994d968ddda3512bcd7c76/KeShip.git ~/keship_ws</span></code></pre>
+                    </div>
+                    <div class="code-block">
+                        <div class="code-head">
+                            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                            <span class="code-lang">Bash · 分支</span>
+                            <button class="copy-btn" data-code="code-branch" type="button">复制</button>
+                        </div>
+<pre><code id="code-branch">cd ~/keship_ws
+git branch -a        <span class="c"># main（发布）/ dev（集成）/ feat/*（特性）</span>
+git checkout main    <span class="c"># 需要发布版时切换；日常开发用 dev</span></code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 步骤 2：环境 -->
+            <div class="step reveal">
+                <div class="step-num">2</div>
+                <div class="step-body">
+                    <h3 class="step-title">配置环境（Ubuntu 24.04 LTS）</h3>
+                    <div class="code-block code-narrow">
+                        <div class="code-head">
+                            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                            <span class="code-lang">Bash · 依赖安装</span>
+                            <button class="copy-btn" data-code="code-env" type="button">复制</button>
+                        </div>
+<pre><code id="code-env"><span class="c"># ① ROS 2 Jazzy</span>
+sudo apt update &amp;&amp; sudo apt install -y software-properties-common
+sudo add-apt-repository universe
+sudo apt update &amp;&amp; sudo apt install -y curl
+sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key \
+  -o /usr/share/keyrings/ros-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release &amp;&amp; echo $UBUNTU_CODENAME) main" \
+  | sudo tee /etc/apt/sources.list.d/ros2.list &gt; /dev/null
+sudo apt update
+sudo apt install -y ros-jazzy-desktop python3-colcon-common-extensions
+
+<span class="c"># ② Gazebo Harmonic</span>
+sudo apt install -y gz-harmonic
+
+<span class="c"># ③ KeShip 依赖（ros-gz 桥接 / Assimp / Eigen3 / Qt5 / 中文字体）</span>
+sudo apt install -y \
+  ros-jazzy-ros-gz-sim ros-jazzy-ros-gz-bridge \
+  libassimp-dev libeigen3-dev \
+  qtbase5-dev qtdeclarative5-dev \
+  qml-module-qtquick2 qml-module-qtquick-controls2 \
+  fonts-noto-cjk</code></pre>
+                    </div>
+                    <p class="step-note">完整从零指南见仓库内 <strong>doc/BUILD.md</strong>（随 git 分发、与代码同步更新）；依赖清单已与 <code>CMakeLists.txt</code> 的 <code>find_package</code> 逐项核对。</p>
+                </div>
+            </div>
+
+            <!-- 步骤 3：编译 -->
+            <div class="step reveal">
+                <div class="step-num">3</div>
+                <div class="step-body">
+                    <h3 class="step-title">编译</h3>
+                    <div class="code-block">
+                        <div class="code-head">
+                            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                            <span class="code-lang">Bash · colcon</span>
+                            <button class="copy-btn" data-code="code-build" type="button">复制</button>
+                        </div>
+<pre><code id="code-build">cd ~/keship_ws
+source /opt/ros/jazzy/setup.bash
+colcon build --packages-select keship --merge-install
+. install/setup.bash</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 步骤 4：启动 -->
+            <div class="step reveal">
+                <div class="step-num">4</div>
+                <div class="step-body">
+                    <h3 class="step-title">启动</h3>
+                    <div class="code-block">
+                        <div class="code-head">
+                            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                            <span class="code-lang">Bash · start_keship.sh</span>
+                            <button class="copy-btn" data-code="code-run" type="button">复制</button>
+                        </div>
+<pre><code id="code-run"><span class="c"># 一键启动：单例互斥 → 激活环境 → 编译闸门 → GPU 预热 → 启动</span>
+~/keship_ws/start_keship.sh</code></pre>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="data-table">
+                            <caption>start_keship.sh 常用参数</caption>
+                            <thead>
+                                <tr><th>参数</th><th>作用</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><code>--no-build</code></td><td>跳过编译，直接启动（代码未改动时更快）</td></tr>
+                                <tr><td><code>--headless</code></td><td>无 GUI 服务器模式（<code>gz sim -s</code>）</td></tr>
+                                <tr><td><code>--no-d3d12</code></td><td>WSLg 渲染异常时切换 llvmpipe 软件渲染</td></tr>
+                                <tr><td><code>--no-gpu-warm</code></td><td>跳过 GPU 预热</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="code-block">
+                        <div class="code-head">
+                            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                            <span class="code-lang">Bash · 手动启动（调试用）</span>
+                            <button class="copy-btn" data-code="code-manual" type="button">复制</button>
+                        </div>
+<pre><code id="code-manual">. install/setup.bash
+ros2 launch keship keship.launch.py</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 跑通标志 -->
+            <div class="ok-band reveal">
+                <p class="ok-title"><span class="note-ico n-ok" aria-hidden="true">✓</span>跑通标志</p>
+                <p>终端无 <code>BUILD FAILED</code> → GPU 预热完成 → KeShip GUI 出现 → 在 GUI 中「载入模型」能看到船舶 → 实验完成。任一步卡住，先查下方注意事项。</p>
+            </div>
+
+            <!-- 注意事项 -->
+            <div class="notes reveal">
+                <div class="note">
+                    <p class="note-title"><span class="note-ico n-warn" aria-hidden="true">!</span>单例互斥</p>
+                    <p>同一时刻只允许一个 KeShip 实例运行，重复启动会被明确拒绝。多实例会互相干扰（gz-transport 服务抢占、水域模型异常、波浪参数互篡改）。</p>
+                </div>
+                <div class="note">
+                    <p class="note-title"><span class="note-ico n-info" aria-hidden="true">i</span>编译失败 ≠ 启动失败</p>
+                    <p>编译失败时 <code>install/</code> 里仍是上一次成功构建的旧版本——看到 <code>BUILD FAILED</code> 中止后，切勿误以为改动已生效。</p>
+                </div>
+                <div class="note">
+                    <p class="note-title"><span class="note-ico n-info" aria-hidden="true">i</span>渲染后端</p>
+                    <p>Windows WSLg + Mesa d3d12 组合若出现泄漏或偶发崩溃，用 <code>--no-d3d12</code> 切换 llvmpipe 软件渲染绕行。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- ================= 页脚 ================= -->
+    <footer>
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <svg class="logo-mark" viewBox="0 0 100 100" aria-hidden="true">
+                    <rect width="100" height="100" rx="22" fill="#38bdf8"/>
+                    <path d="M22 62 L50 40 L78 62 L70 62 L70 68 L30 68 L30 62 Z" fill="#fff" opacity=".95"/>
+                    <rect x="44" y="30" width="12" height="10" fill="#fff" opacity=".95"/>
+                    <line x1="50" y1="22" x2="50" y2="30" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".95"/>
+                    <circle cx="50" cy="20" r="3" fill="#fde047"/>
+                    <path d="M14 78 q 12 -5 24 0 t 24 0 t 24 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+                </svg>
+                <span>KeShip</span>
+            </div>
+            <p class="footer-desc">船舶虚拟仿真实验平台 · 为船海工程教育而生</p>
+            <p class="footer-kz">
+                <img class="kz-mark-sm" src="assets/kzqj-logo.svg" alt="嵙舟求舰" width="20" height="20">
+                <span>嵙舟求舰 · 出品</span>
+            </p>
+
+            <nav class="footer-links" aria-label="页脚导航">
+                <a href="index.html">首页</a>
+                <a href="features.html">核心能力</a>
+                <a href="start.html">快速开始</a>
+                <a href="showcase.html">界面速览</a>
+                <a href="get.html">获取</a>
+                <a href="download/index.html">镜像下载</a>
+            </nav>
+            <p class="footer-copy">© <span id="year">2026</span> KeShip Project · 嵙舟求舰 · Gazebo / ROS 2 / Qt</p>
+        </div>
+    </footer>
+
+    <button id="back-top" class="back-top" type="button" aria-label="回到顶部">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 15 7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
