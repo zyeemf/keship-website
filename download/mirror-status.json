@@ -5,13 +5,13 @@
   "channels": {
     "cn": {
       "ready": false,
-      "label": "国内线路下载（阿里云盘）",
+      "label": "国内线路（阿里云盘）",
       "url": "",
       "note": "国内快速通道；ready 改 true 且填 url 后按钮自动启用"
     },
     "intl": {
       "ready": true,
-      "label": "国际线路下载（GitHub 分卷 ×4）",
+      "label": "国际线路（GitHub ×4）",
       "url": "https://github.com/zyeemf/KeShip/releases/tag/v0.1.0-image",
       "note": "下载全部 4 个分卷后合并：cat KeShip-WSL-Image.tar.part_* > KeShip-WSL-Image.tar"
     }
