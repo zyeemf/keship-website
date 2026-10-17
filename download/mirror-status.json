@@ -1,0 +1,19 @@
+{
+  "version": "v0.1.0",
+  "sizeGB": 11,
+  "sha256": "",
+  "channels": {
+    "cn": {
+      "ready": false,
+      "label": "国内线路下载（阿里云盘）",
+      "url": "",
+      "note": "国内快速通道；ready 改 true 且填 url 后按钮自动启用"
+    },
+    "intl": {
+      "ready": false,
+      "label": "国际线路下载（GitHub 分卷）",
+      "url": "",
+      "note": "6 个分卷 + 合并命令见 Release 页；ready 改 true 且填 url 后按钮自动启用"
+    }
+  }
+}

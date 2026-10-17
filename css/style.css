@@ -1306,7 +1306,7 @@ footer {
 /* ---------- 镜像下载区 ---------- */
 .mirror-download {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto auto 1fr;
     align-items: center;
     gap: 14px;
     padding: 16px 20px;

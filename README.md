@@ -33,7 +33,8 @@ keship-website/
 ├── showcase.html           界面速览（真实 GUI 截图 / ROS 2 联调话题）
 ├── get.html                获取（版本信息 / 两种获取方式 / 系统要求）
 ├── download/
-│   ├── index.html          WSL 预置镜像下载页
+│   ├── index.html          WSL 预置镜像下载页（双线路按钮）
+│   ├── mirror-status.json  镜像线路配置（ready/url/sha256，维护者编辑）
 │   └── README.md           镜像放置规范（维护者说明）
 ├── css/style.css           设计系统 + 全部组件
 ├── js/main.js              交互（导航 / 动画 / 复制 / 镜像检测）
@@ -88,7 +89,7 @@ keship-website/
 | 功能 | 实现 |
 |---|---|
 | 多页导航 | 静态 `active` 标注 + 移动端汉堡 + 滚动进度条 |
-| **镜像就绪检测** | `fetch(file, {method:'HEAD'})` 探测 `download/KeShip-WSL-Image.tar`：就绪→按钮可点；未就绪→灰态 + 提示联系课程组 |
+| **镜像就绪检测（双线路）** | 读同目录 `mirror-status.json` 配置清单（镜像托管在外部，HEAD 探测会被 CORS 拦，故用部署时配置）：国内（阿里云盘）/ 国际（GitHub 分卷）两按钮，按 `ready`+`url` 自动启用，`sha256` 随就绪状态展示 |
 | 代码复制 | `navigator.clipboard` + `execCommand` 降级，按钮 2 秒回显 |
 | 入场动画 | `IntersectionObserver`（阈值 0.12），reduced-motion 直接显示 |
 | 回到顶部 | 滚动 > 640px 出现 |
@@ -159,7 +160,7 @@ cd keship-website && python -m http.server 8765
 
 | # | 事项 | 状态 |
 |---|---|---|
-| 1 | `download/KeShip-WSL-Image.tar` 镜像文件待放入 | 待张老师提供；放入后按钮自动启用，**无需改代码** |
+| 1 | 镜像分发链接待回填 `download/mirror-status.json`（阿里云盘 + GitHub Release + SHA256） | 待镜像制作完成；回填后按钮自动启用，**无需改代码** |
 | 2 | 旧备份 `webkeship/keship-website20260810.zip`（8 月旧包） | 待确认是否清理 |
 | 3 | `start.html`「配置环境」代码框（720px）与其它步骤代码框宽度不统一 | 已知取舍：克隆步骤含超长 URL，统一收窄会触发横向滚动 |
 | 4 | 首页/`get` 页左侧卡片与右列底部不齐平 | 已知取舍：内容自适应优先于强行拉平（拉平会导致大片留白） |

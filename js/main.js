@@ -117,34 +117,53 @@
         });
     });
 
-    /* ---------- 镜像就绪检测（仅下载页） ---------- */
-    var mirrorBtn = document.getElementById('mirror-btn');
-    if (mirrorBtn) {
-        var mirrorFile = mirrorBtn.dataset.file || 'KeShip-WSL-Image.tar';
-        var mirrorText = document.getElementById('mirror-btn-text');
-        var mirrorStatus = document.getElementById('mirror-status');
-
-        function mirrorPending() {
-            mirrorBtn.classList.add('is-pending');
-            mirrorBtn.setAttribute('aria-disabled', 'true');
-            mirrorBtn.removeAttribute('href');
-            if (mirrorText) mirrorText.textContent = '镜像即将提供';
-            if (mirrorStatus) mirrorStatus.textContent = '镜像文件尚未就绪——请联系课程组 / 实验室获取当期发放方式。';
+    /* ---------- 镜像就绪检测（仅下载页）：读同目录 mirror-status.json 配置清单 ----------
+       为什么不用 HEAD 探测：镜像托管在阿里云盘/GitHub（跨域），浏览器 fetch HEAD 会被
+       CORS 拦截；改为部署时更新的本地配置清单，同源读取，无跨域问题。 */
+    var mirrorPanel = document.getElementById('mirror-btn-cn');
+    if (mirrorPanel) {
+        function setMirrorBtn(btnId, textId, ready, url, label, pendingText) {
+            var btn = document.getElementById(btnId);
+            var text = document.getElementById(textId);
+            if (!btn) return;
+            if (ready && url) {
+                btn.classList.remove('is-pending');
+                btn.setAttribute('aria-disabled', 'false');
+                btn.setAttribute('href', url);
+                if (text) text.textContent = label;
+            } else {
+                btn.classList.add('is-pending');
+                btn.setAttribute('aria-disabled', 'true');
+                btn.removeAttribute('href');
+                if (text) text.textContent = pendingText || '即将提供';
+            }
         }
 
-        fetch(mirrorFile, { method: 'HEAD' })
-            .then(function (r) {
-                if (r.ok) {
-                    mirrorBtn.classList.remove('is-pending');
-                    mirrorBtn.setAttribute('aria-disabled', 'false');
-                    mirrorBtn.setAttribute('href', mirrorFile);
-                    if (mirrorText) mirrorText.textContent = '下载 WSL 预置镜像';
-                    if (mirrorStatus) mirrorStatus.textContent = '镜像已就绪（约 11 GB）。下载后按导入命令安装即可。';
-                } else {
-                    mirrorPending();
+        function mirrorPending(statusText) {
+            setMirrorBtn('mirror-btn-cn', 'mirror-btn-cn-text', false, '', '', '国内线路即将提供');
+            setMirrorBtn('mirror-btn-intl', 'mirror-btn-intl-text', false, '', '', '国际线路即将提供');
+            var st = document.getElementById('mirror-status');
+            if (st) st.textContent = statusText || '镜像文件尚未就绪——请联系课程组 / 实验室获取当期发放方式。';
+        }
+
+        fetch('mirror-status.json', { cache: 'no-store' })
+            .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+            .then(function (cfg) {
+                var ch = cfg.channels || {};
+                var cn = ch.cn || {}, intl = ch.intl || {};
+                setMirrorBtn('mirror-btn-cn', 'mirror-btn-cn-text', !!cn.ready, cn.url, cn.label || '国内线路下载', '国内线路即将提供');
+                setMirrorBtn('mirror-btn-intl', 'mirror-btn-intl-text', !!intl.ready, intl.url, intl.label || '国际线路下载', '国际线路即将提供');
+                var st = document.getElementById('mirror-status');
+                if (st) {
+                    if (cn.ready || intl.ready) {
+                        st.textContent = '镜像已就绪（约 ' + (cfg.sizeGB || 11) + ' GB），国内用户建议使用国内线路。' +
+                            (cfg.sha256 ? 'SHA256：' + cfg.sha256 : '');
+                    } else {
+                        st.textContent = '镜像文件尚未就绪——请联系课程组 / 实验室获取当期发放方式。';
+                    }
                 }
             })
-            .catch(mirrorPending);
+            .catch(function () { mirrorPending(); });
     }
 
     /* ---------- 页脚年份 ---------- */

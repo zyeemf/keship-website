@@ -82,11 +82,15 @@
                     <div class="get-panel reveal">
                         <h3>下载镜像</h3>
                         <div class="mirror-download">
-                            <a class="btn btn-primary btn-large mirror-btn is-pending" id="mirror-btn" data-file="KeShip-WSL-Image.tar" role="button" aria-disabled="true">
+                            <a class="btn btn-primary btn-large mirror-btn is-pending" id="mirror-btn-cn" role="button" aria-disabled="true">
                                 <svg viewBox="0 0 24 24" class="btn-ico" aria-hidden="true"><path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2.5A1.5 1.5 0 0 0 5.5 21h13a1.5 1.5 0 0 0 1.5-1.5V17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                                <span id="mirror-btn-text">正在检测镜像文件…</span>
+                                <span id="mirror-btn-cn-text">国内线路检测中…</span>
                             </a>
-                            <p class="mirror-status" id="mirror-status">检测中…</p>
+                            <a class="btn btn-ghost btn-large mirror-btn is-pending" id="mirror-btn-intl" role="button" aria-disabled="true">
+                                <svg viewBox="0 0 24 24" class="btn-ico" aria-hidden="true"><path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2.5A1.5 1.5 0 0 0 5.5 21h13a1.5 1.5 0 0 0 1.5-1.5V17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                                <span id="mirror-btn-intl-text">国际线路检测中…</span>
+                            </a>
+                            <p class="mirror-status" id="mirror-status">正在读取镜像状态…</p>
                         </div>
                         <p class="panel-text">若镜像尚未就绪，请联系<strong>课程组 / 实验室</strong>获取当期发放方式；拿到 <code>.tar</code> 文件后无需修改文件名，直接按右侧命令导入即可。</p>
                         <a href="../start.html#student" class="panel-link">查看完整安装步骤 →</a>
@@ -110,7 +114,7 @@
             <div class="notes reveal">
                 <div class="note">
                     <p class="note-title"><span class="note-ico n-info" aria-hidden="true">i</span>此页如何启用下载</p>
-                    <p>把镜像文件放到本目录（<code>download/</code>）并命名为 <code>KeShip-WSL-Image.tar</code>，本页自动出现可点击的下载按钮——无需改动任何代码。更新版本时直接覆盖同名文件即可。</p>
+                    <p>镜像（约 11 GB）不放在网站目录（超出托管限额）。编辑本目录下的 <code>mirror-status.json</code>：把对应线路的 <code>ready</code> 改为 <code>true</code>、<code>url</code> 填下载地址，并更新 <code>sha256</code>——推送后本页自动出现可点击按钮，无需改动任何代码。</p>
                 </div>
                 <div class="note">
                     <p class="note-title"><span class="note-ico n-info" aria-hidden="true">i</span>本地打开时检测不生效</p>
