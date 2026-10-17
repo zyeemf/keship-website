@@ -20,7 +20,7 @@
 ## 镜像规范（发放时核对）
 
 - 内容：Ubuntu 24.04 LTS + ROS 2 Jazzy + Gazebo Harmonic（gz-sim8）+ KeShip 及全部依赖（已编译就绪）+ 中文字体（fonts-noto-cjk）；
-- 大小约 11 GB；对应 KeShip `v0.1.0`（2026-10-12）；
+- 大小约 6 GB；对应 KeShip `v0.1.0`（2026-10-12）；
 - 导入命令（写入下载页）：`wsl --import KeShip E:\WSLDistros\KeShip <路径>\KeShip-WSL-Image.tar --version 2`；
 - 建议同时向发放对象提供文件校验值（SHA256），导入失败最常见原因是 `.tar` 不完整。
 
