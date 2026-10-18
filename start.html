@@ -113,8 +113,10 @@ wsl --import KeShip E:\WSLDistros\KeShip D:\WSL\&lt;镜像文件名&gt;.tar --ve
                             <span class="code-lang">Bash</span>
                             <button class="copy-btn" data-code="code-stu-run" type="button">复制</button>
                         </div>
-<pre><code id="code-stu-run">wsl -d KeShip              <span class="c"># 进入镜像内的 Ubuntu</span>
-~/keship_ws/start_keship.sh   <span class="c"># 一键启动（互斥 → GPU 预热 → 启动）</span></code></pre>
+<pre><code id="code-stu-run"><span class="c"># 推荐：双击 KeShip-Start.bat（与镜像在同一页面下载）</span>
+<span class="c"># 或在终端中：</span>
+wsl -d KeShip                            <span class="c"># 进入镜像内的 Ubuntu</span>
+~/keship_ws/start_keship.sh --no-build   <span class="c"># 启动（镜像已编译，跳过编译）</span></code></pre>
                     </div>
                     <p class="step-text">看到 KeShip 图形界面即成功。之后每次实验只需重复第 3 步。</p>
                 </div>

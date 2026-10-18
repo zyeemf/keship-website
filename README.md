@@ -110,7 +110,7 @@ keship-website/
 | 华为云 | `codehub.devcloud.cn-east-3.huaweicloud.com/.../KeShip.git` | `git remote` |
 | 克隆路径 | `~/keship_ws` | 文档一致 |
 | 启动 | `~/keship_ws/start_keship.sh`（仓库**无** bat 入口） | 仓库实查 |
-| 镜像 | 固定名 `KeShip-WSL-Image.tar`，6.35GB（v0.1.0），托管 ModelScope | 约定+实测 |
+| 镜像 | 固定名 `KeShip-WSL-Image.tar`，约 6.4 GB（v0.1.0），托管 ModelScope | 约定+实测 |
 | 课题组署名 | 嵙舟求舰（每页页脚 + 图标） | — |
 
 ---
