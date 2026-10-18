@@ -11,7 +11,7 @@
 | 国内 | ModelScope 仓库 `zyeemf/KeShip-V010-WSL-Image` | 阿里 CDN、免登录、单文件 6.35GB 直下；版本用 git tag 管理（当前 v0.1.0） |
 | 国际 | **同上**（统一托管） | ModelScope 全球可访问，国际/国内同源，不做双源分发 |
 | 备用 | 阿里云盘 | `mirror-status.json` 的 `backup.url`/`backup.code` 就绪后自动显示 |
-| 应急 | GitHub Release 分卷（4×1.9GB） | **预案**：仅当 ModelScope 故障时启动——上传 E 盘现成分卷（`KeShip-WSL-Image.tar.part_*`），把 `intl.url` 改回 Release tag 页即可 |
+| 应急 | GitHub Release 分卷（4×1.9GB） | **预案**：仅当 ModelScope 故障时启动——上传现成分卷（`E:\KeShip-Release\v0.1.0\parts\KeShip-WSL-Image.tar.part_*`，共 4 份，round-trip 已验证），把 `intl.url` 改回 Release tag 页即可 |
 
 ## 如何更新版本（维护者）
 
