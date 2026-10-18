@@ -1,6 +1,7 @@
 {
   "version": "v0.1.0",
-  "sizeGB": 6,
+  "sizeGB": 6.4,
+  "releaseDate": "2026-10-12",
   "sha256": "2c392c4a69b215f58439d3807e123635e06af7a43abf57023193256abd05a123",
   "channels": {
     "cn": {
@@ -18,7 +19,7 @@
       "ready": true,
       "label": "国际线路（ModelScope）",
       "url": "https://modelscope.cn/models/zyeemf/KeShip-V010-WSL-Image/files",
-      "note": "镜像统一托管 ModelScope，全球可访问（免登录）；GitHub Release 分卷为应急预案，见维护者说明"
+      "note": "镜像统一托管 ModelScope，全球可访问、免登录"
     }
   }
 }

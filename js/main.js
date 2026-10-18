@@ -117,6 +117,27 @@
         });
     });
 
+    /* ---------- 版本/日期/大小统一取 mirror-status.json（单一事实源，页面不再手填） ----------
+       起因：页面曾把 v0.1.0 与 6 GB 写死在 HTML 里，与配置清单各自演化 ⇒ 发版漏改即出现自相矛盾。
+       现在 HTML 只用 data-cfg 标出"这里要填"，真值由清单提供。 */
+    if (document.querySelector('[data-cfg]')) {
+        var selfSrc = (document.currentScript && document.currentScript.src) || '';
+        var cfgBase = selfSrc ? selfSrc.replace(/js\/main\.js.*$/, '') : '';
+        fetch(cfgBase + 'download/mirror-status.json', { cache: 'no-store' })
+            .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+            .then(function (cfg) {
+                var map = { version: cfg.version, releaseDate: cfg.releaseDate,
+                            size: cfg.sizeGB ? cfg.sizeGB + ' GB' : '' };
+                Object.keys(map).forEach(function (k) {
+                    if (!map[k]) return;
+                    Array.prototype.forEach.call(
+                        document.querySelectorAll('[data-cfg="' + k + '"]'),
+                        function (el) { el.textContent = map[k]; });
+                });
+            })
+            .catch(function () { /* 清单不可达时保留 HTML 里的兜底文本，不打断页面 */ });
+    }
+
     /* ---------- 镜像就绪检测（仅下载页）：读同目录 mirror-status.json 配置清单 ----------
        为什么不用 HEAD 探测：镜像托管在阿里云盘/GitHub（跨域），浏览器 fetch HEAD 会被
        CORS 拦截；改为部署时更新的本地配置清单，同源读取，无跨域问题。 */
@@ -143,7 +164,7 @@
             setMirrorBtn('mirror-btn-cn', 'mirror-btn-cn-text', false, '', '', '国内线路即将提供');
             setMirrorBtn('mirror-btn-intl', 'mirror-btn-intl-text', false, '', '', '国际线路即将提供');
             var st = document.getElementById('mirror-status');
-            if (st) st.textContent = statusText || '镜像文件尚未就绪——请联系课程组 / 实验室获取当期发放方式。';
+            if (st) st.textContent = statusText || '镜像文件尚未就绪——请在公众号「嵙舟求舰KeShip」留言获取当期发放方式。';
         }
 
         fetch('mirror-status.json', { cache: 'no-store' })
@@ -156,7 +177,7 @@
                 var st = document.getElementById('mirror-status');
                 if (st) {
                     if (cn.ready || intl.ready) {
-                        var txt = '镜像已就绪（约 ' + (cfg.sizeGB || 6) + ' GB），托管于 ModelScope——全球可访问，国内速度最佳。';
+                        var txt = '镜像已就绪（约 ' + (cfg.sizeGB || 6.4) + ' GB），托管于 ModelScope——全球可访问，国内速度最佳。';
                         var backup = (ch.cn && ch.cn.backup) || {};
                         if (cn.ready && backup.url) {
                             txt += ' ' + (backup.label || '备用线路') + '：' + backup.url +
@@ -165,7 +186,7 @@
                         txt += cfg.sha256 ? ' SHA256：' + cfg.sha256 : '';
                         st.textContent = txt;
                     } else {
-                        st.textContent = '镜像文件尚未就绪——请联系课程组 / 实验室获取当期发放方式。';
+                        st.textContent = '镜像文件尚未就绪——请在公众号「嵙舟求舰KeShip」留言获取当期发放方式。';
                     }
                 }
             })
