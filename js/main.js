@@ -156,8 +156,14 @@
                 var st = document.getElementById('mirror-status');
                 if (st) {
                     if (cn.ready || intl.ready) {
-                        st.textContent = '镜像已就绪（约 ' + (cfg.sizeGB || 11) + ' GB），国内用户建议使用国内线路。' +
-                            (cfg.sha256 ? 'SHA256：' + cfg.sha256 : '');
+                        var txt = '镜像已就绪（约 ' + (cfg.sizeGB || 6) + ' GB），国内用户建议使用国内线路。';
+                        var backup = (ch.cn && ch.cn.backup) || {};
+                        if (cn.ready && backup.url) {
+                            txt += ' ' + (backup.label || '备用线路') + '：' + backup.url +
+                                (backup.code ? '（提取码 ' + backup.code + '）' : '');
+                        }
+                        txt += cfg.sha256 ? ' SHA256：' + cfg.sha256 : '';
+                        st.textContent = txt;
                     } else {
                         st.textContent = '镜像文件尚未就绪——请联系课程组 / 实验室获取当期发放方式。';
                     }

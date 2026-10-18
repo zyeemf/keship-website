@@ -4,10 +4,15 @@
   "sha256": "2c392c4a69b215f58439d3807e123635e06af7a43abf57023193256abd05a123",
   "channels": {
     "cn": {
-      "ready": false,
-      "label": "国内线路（阿里云盘）",
-      "url": "",
-      "note": "国内快速通道；ready 改 true 且填 url 后按钮自动启用"
+      "ready": true,
+      "label": "国内线路（ModelScope）",
+      "url": "https://www.modelscope.cn/models/zyeemf/KeShip-V010-WSL-Image",
+      "note": "国内快速通道（阿里 CDN，单文件 6GB 免分卷）",
+      "backup": {
+        "label": "备用线路：阿里云盘",
+        "url": "",
+        "code": ""
+      }
     },
     "intl": {
       "ready": true,
