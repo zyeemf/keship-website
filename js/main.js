@@ -156,7 +156,7 @@
                 var st = document.getElementById('mirror-status');
                 if (st) {
                     if (cn.ready || intl.ready) {
-                        var txt = '镜像已就绪（约 ' + (cfg.sizeGB || 6) + ' GB），国内用户建议使用国内线路。';
+                        var txt = '镜像已就绪（约 ' + (cfg.sizeGB || 6) + ' GB），托管于 ModelScope——全球可访问，国内速度最佳。';
                         var backup = (ch.cn && ch.cn.backup) || {};
                         if (cn.ready && backup.url) {
                             txt += ' ' + (backup.label || '备用线路') + '：' + backup.url +

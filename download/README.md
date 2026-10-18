@@ -2,28 +2,36 @@
 
 ## 用途
 
-存放 KeShip 预置 WSL 镜像（学生用户一键安装用），由 `download/index.html`（镜像下载页）自动识别并启用下载按钮。
+存放镜像下载页（`index.html`）与线路配置（`mirror-status.json`）。**镜像本体托管在 ModelScope，不在本目录**（6GB 超出站点托管限额，且外部托管跨域无法 HEAD 探测，故用配置清单方案）。
 
-## 如何放置镜像（维护者）
+## 当前分发架构（2026-10-18 定稿）
 
-1. 将镜像文件复制到本目录；
-2. 命名为 **`KeShip-WSL-Image.tar`**（固定名，版本更新直接覆盖）；
-3. 刷新 `download/index.html` —— 下载按钮自动从「即将提供」变为可点击，**无需改动任何代码**。
+| 线路 | 渠道 | 说明 |
+|---|---|---|
+| 国内 | ModelScope 仓库 `zyeemf/KeShip-V010-WSL-Image` | 阿里 CDN、免登录、单文件 6.35GB 直下；版本用 git tag 管理（当前 v0.1.0） |
+| 国际 | **同上**（统一托管） | ModelScope 全球可访问，国际/国内同源，不做双源分发 |
+| 备用 | 阿里云盘 | `mirror-status.json` 的 `backup.url`/`backup.code` 就绪后自动显示 |
+| 应急 | GitHub Release 分卷（4×1.9GB） | **预案**：仅当 ModelScope 故障时启动——上传 E 盘现成分卷（`KeShip-WSL-Image.tar.part_*`），把 `intl.url` 改回 Release tag 页即可 |
 
-> 就绪检测需要经 HTTP 访问网页（站点服务器）；直接双击本地文件时检测不生效，按钮保持「即将提供」。
+## 如何更新版本（维护者）
 
-## 当前状态
+1. 构建新镜像（基准 + `build_version.sh`，见 `../../WSL_IMAGE_RUNBOOK.md`）→ 导出 tar + `certutil` 算 SHA256；
+2. `ms_upload.sh <新tar> "说明" v0.x.x` 上传 ModelScope（持久凭据已配，自动打版本 tag）；
+3. 本目录 `mirror-status.json`：更新 `sha256` / `sizeGB`，确认两条线路 `ready:true`；
+4. （可选）阿里云盘备用：填 `backup.url` + `backup.code`；
+5. 推送网站三站（`deploy_site.py push all`）→ 按钮自动切到新版本。
 
-- `KeShip-WSL-Image.tar`：**尚未提供**（待放入）。
-- 页面文案：未就绪时提示联系课程组 / 实验室。
+> ⚠ ModelScope 机审严格：仓库内**严禁上传图片/截图**（2026-10-18 曾有 GUI 截图被整体 revert）。README 与 .bat 为纯文本，安全。
 
 ## 镜像规范（发放时核对）
 
 - 内容：Ubuntu 24.04 LTS + ROS 2 Jazzy + Gazebo Harmonic（gz-sim8）+ KeShip 及全部依赖（已编译就绪）+ 中文字体（fonts-noto-cjk）；
-- 大小约 6 GB；对应 KeShip `v0.1.0`（2026-10-12）；
+- 当前 v0.1.0：**6.35GB**，SHA256 `2c392c4a69b215f58439d3807e123635e06af7a43abf57023193256abd05a123`；
 - 导入命令（写入下载页）：`wsl --import KeShip E:\WSLDistros\KeShip <路径>\KeShip-WSL-Image.tar --version 2`；
-- 建议同时向发放对象提供文件校验值（SHA256），导入失败最常见原因是 `.tar` 不完整。
+- 学生启动：`KeShip-Start.bat`（随 ModelScope 仓库分发，双击即用）；
+- 导入失败最常见原因：`.tar` 不完整——务必提供 SHA256 校验值。
 
 ## 历史说明（已废弃）
 
-- 旧版网站曾提供 `KeShip-v1.0.0.zip` 下载入口（2025-08-09），该安装包从未随站发布，且版本内容已远落后于当前代码。该入口已移除，统一改为「学生镜像 / git 源码」双路分发。
+- 2026-10-17 前：镜像放本目录 + HEAD 探测就绪——已废弃（CORS 拦跨域探测 + 6GB 超托管限额），改配置清单方案；
+- 旧版网站曾提供 `KeShip-v1.0.0.zip` 入口（2025-08-09），从未发布且内容已远落后，已移除。

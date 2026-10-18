@@ -89,7 +89,7 @@ keship-website/
 | 功能 | 实现 |
 |---|---|
 | 多页导航 | 静态 `active` 标注 + 移动端汉堡 + 滚动进度条 |
-| **镜像就绪检测（双线路）** | 读同目录 `mirror-status.json` 配置清单（镜像托管在外部，HEAD 探测会被 CORS 拦，故用部署时配置）：国内（阿里云盘）/ 国际（GitHub 分卷）两按钮，按 `ready`+`url` 自动启用，`sha256` 随就绪状态展示 |
+| **镜像就绪检测（双按钮同源）** | 读同目录 `mirror-status.json` 配置清单（镜像托管在外部，HEAD 探测会被 CORS 拦，故用部署时配置）：国内/国际两按钮均指向 ModelScope 仓库（统一托管、全球可访问），按 `ready`+`url` 自动启用；阿里云盘备用链接+提取码随就绪状态展示 |
 | 代码复制 | `navigator.clipboard` + `execCommand` 降级，按钮 2 秒回显 |
 | 入场动画 | `IntersectionObserver`（阈值 0.12），reduced-motion 直接显示 |
 | 回到顶部 | 滚动 > 640px 出现 |
@@ -110,7 +110,7 @@ keship-website/
 | 华为云 | `codehub.devcloud.cn-east-3.huaweicloud.com/.../KeShip.git` | `git remote` |
 | 克隆路径 | `~/keship_ws` | 文档一致 |
 | 启动 | `~/keship_ws/start_keship.sh`（仓库**无** bat 入口） | 仓库实查 |
-| 镜像 | 固定名 `KeShip-WSL-Image.tar`，约 6 GB | 约定 |
+| 镜像 | 固定名 `KeShip-WSL-Image.tar`，6.35GB（v0.1.0），托管 ModelScope | 约定+实测 |
 | 课题组署名 | 嵙舟求舰（每页页脚 + 图标） | — |
 
 ---

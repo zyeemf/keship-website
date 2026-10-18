@@ -6,8 +6,8 @@
     "cn": {
       "ready": true,
       "label": "国内线路（ModelScope）",
-      "url": "https://www.modelscope.cn/models/zyeemf/KeShip-V010-WSL-Image",
-      "note": "国内快速通道（阿里 CDN，单文件 6GB 免分卷）",
+      "url": "https://modelscope.cn/models/zyeemf/KeShip-V010-WSL-Image/files",
+      "note": "阿里 CDN，国内快；文件行右侧点「下载」",
       "backup": {
         "label": "备用线路：阿里云盘",
         "url": "",
@@ -16,9 +16,9 @@
     },
     "intl": {
       "ready": true,
-      "label": "国际线路（GitHub ×4）",
-      "url": "https://github.com/zyeemf/KeShip/releases/tag/v0.1.0-image",
-      "note": "下载全部 4 个分卷后合并：cat KeShip-WSL-Image.tar.part_* > KeShip-WSL-Image.tar"
+      "label": "国际线路（ModelScope）",
+      "url": "https://modelscope.cn/models/zyeemf/KeShip-V010-WSL-Image/files",
+      "note": "镜像统一托管 ModelScope，全球可访问（免登录）；GitHub Release 分卷为应急预案，见维护者说明"
     }
   }
 }
