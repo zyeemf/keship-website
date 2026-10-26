@@ -1,8 +1,8 @@
 {
   "version": "v0.1.0",
-  "sizeGB": 6.4,
-  "releaseDate": "2026-10-12",
-  "sha256": "2c392c4a69b215f58439d3807e123635e06af7a43abf57023193256abd05a123",
+  "sizeGB": 6.2,
+  "releaseDate": "2026-10-26",
+  "sha256": "0c7476463e3fb749c67ba509ca300dc139ec578048891215fe870c31b2496bd3",
   "channels": {
     "cn": {
       "ready": true,

@@ -2,13 +2,13 @@
 
 ## 用途
 
-存放镜像下载页（`index.html`）与线路配置（`mirror-status.json`）。**镜像本体托管在 ModelScope，不在本目录**（6.4 GB 超出站点托管限额，且外部托管跨域无法 HEAD 探测，故用配置清单方案）。
+存放镜像下载页（`index.html`）与线路配置（`mirror-status.json`）。**镜像本体托管在 ModelScope，不在本目录**（6.2 GB 超出站点托管限额，且外部托管跨域无法 HEAD 探测，故用配置清单方案）。
 
 ## 当前分发架构（2026-10-18 定稿）
 
 | 线路 | 渠道 | 说明 |
 |---|---|---|
-| 国内 | ModelScope 仓库 `zyeemf/KeShip-V010-WSL-Image` | 阿里 CDN、免登录、单文件约 6.4 GB 直下；版本用 git tag 管理（当前 v0.1.0） |
+| 国内 | ModelScope 仓库 `zyeemf/KeShip-V010-WSL-Image` | 阿里 CDN、免登录、单文件约 6.2 GB 直下；版本用 git tag 管理（当前 v0.1.0） |
 | 国际 | **同上**（统一托管） | ModelScope 全球可访问，国际/国内同源，不做双源分发 |
 | 备用 | 阿里云盘 | `mirror-status.json` 的 `backup.url`/`backup.code` 就绪后自动显示 |
 | 应急 | GitHub Release 分卷（4×1.9GB） | **预案**：仅当 ModelScope 故障时启动——上传现成分卷（`E:\KeShip-Release\v0.1.0\parts\KeShip-WSL-Image.tar.part_*`，共 4 份，round-trip 已验证），把 `intl.url` 改回 Release tag 页即可 |
@@ -26,12 +26,12 @@
 ## 镜像规范（发放时核对）
 
 - 内容：Ubuntu 24.04 LTS + ROS 2 Jazzy + Gazebo Harmonic（gz-sim8）+ KeShip 及全部依赖（已编译就绪）+ 中文字体（fonts-noto-cjk）；
-- 当前 v0.1.0：**约 6.4 GB**，SHA256 `2c392c4a69b215f58439d3807e123635e06af7a43abf57023193256abd05a123`；
+- 当前 v0.1.0：**约 6.2 GB**，SHA256 `0c7476463e3fb749c67ba509ca300dc139ec578048891215fe870c31b2496bd3`；
 - 导入命令（写入下载页）：`wsl --import KeShip E:\WSLDistros\KeShip <路径>\KeShip-WSL-Image.tar --version 2`；
 - 学生启动：`KeShip-Start.bat`（随 ModelScope 仓库分发，双击即用）；
 - 导入失败最常见原因：`.tar` 不完整——务必提供 SHA256 校验值。
 
 ## 历史说明（已废弃）
 
-- 2026-10-17 前：镜像放本目录 + HEAD 探测就绪——已废弃（CORS 拦跨域探测 + 6.4 GB 超托管限额），改配置清单方案；
+- 2026-10-17 前：镜像放本目录 + HEAD 探测就绪——已废弃（CORS 拦跨域探测 + 6.2 GB 超托管限额），改配置清单方案；
 - 旧版网站曾提供 `KeShip-v1.0.0.zip` 入口（2025-08-09），从未发布且内容已远落后，已移除。
