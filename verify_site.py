@@ -77,7 +77,7 @@ for name, html in pages.items():
 
     # 课题组署名（每页页脚）
     if "嵙舟求舰" not in html:
-        errors.append(f"[{name}] 缺少课题组署名「嵙舟求舰」")
+        errors.append(f"[{name}] 缺少团队署名「嵙舟求舰」")
 
     # 页脚链接一致性（6 项应与 NAV 完全一致；download/ 子目录页要解析 ../）
     foot_html = re.search(r'<nav class="footer-links".*?</nav>', html, re.S)
